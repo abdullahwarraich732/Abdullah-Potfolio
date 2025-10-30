@@ -1,0 +1,214 @@
+ /* Base styles for the entire page */
+        :root {
+            --primary-color: #0d9488; /* Teal-600 */
+            --dark-bg: #0f172a; /* Slate-900 */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-bg);
+            color: #e2e8f0; /* Slate-200 */
+            scroll-behavior: smooth;
+        }
+
+        /* Custom styles for the 3D Project Card Carousel */
+        #projects-carousel {
+            perspective: 1500px; /* Define the 3D space */
+            transform-style: preserve-3d;
+            height: 400px;
+        }
+
+        .project-card {
+            width: 300px;
+            height: 380px;
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            margin-left: -150px;
+            cursor: pointer;
+            transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out, box-shadow 0.3s;
+            backface-visibility: hidden;
+            border: 2px solid rgba(13, 148, 136, 0.2);
+        }
+
+        .project-card:hover {
+            transform: scale(1.03) translateZ(50px) !important;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        /* State classes for card positioning (set by JS) */
+        .card-center {
+            transform: translateZ(200px) translateX(0) rotateY(0deg);
+            opacity: 1;
+        }
+        .card-left-1 {
+            transform: translateZ(-50px) translateX(-450px) rotateY(15deg) scale(0.9);
+            opacity: 0.6;
+        }
+        .card-right-1 {
+            transform: translateZ(-50px) translateX(450px) rotateY(-15deg) scale(0.9);
+            opacity: 0.6;
+        }
+        .card-hidden {
+            transform: translateZ(-300px) scale(0.7);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Modal specific styles */
+        .modal-bg {
+            background-color: rgba(15, 23, 42, 0.95);
+        }
+
+        /* Utility for premium button look */
+        .btn-primary {
+            background: var(--primary-color);
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 15px rgba(13, 148, 136, 0.4);
+        }
+        .btn-primary:hover {
+            background: #0f766e; /* Teal-700 */
+            box-shadow: 0 6px 20px rgba(13, 148, 136, 0.6);
+            transform: translateY(-1px);
+        }
+
+        /* Custom scrollbar for subtle look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1e293b; /* Slate-800 */
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0f766e;
+        }
+        
+        /* --- Animated Burger Icon CSS --- */
+        .burger {
+            position: relative;
+            width: 30px; 
+            height: 25px; 
+            background: transparent;
+            cursor: pointer;
+            display: block;
+            margin-top: 5px; 
+            margin-bottom: 5px;
+        }
+
+        .burger input {
+            display: none;
+        }
+
+        .burger span {
+            display: block;
+            position: absolute;
+            height: 4px; 
+            width: 100%;
+            background: #e2e8f0; 
+            border-radius: 9px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: .25s ease-in-out;
+        }
+        
+        .burger:hover span {
+            background: var(--primary-color); 
+        }
+
+        .burger span:nth-of-type(1) {
+            top: 0px;
+            transform-origin: left center;
+        }
+
+        .burger span:nth-of-type(2) {
+            top: 50%;
+            transform: translateY(-50%);
+            transform-origin: left center;
+        }
+
+        .burger span:nth-of-type(3) {
+            top: 100%;
+            transform-origin: left center;
+            transform: translateY(-100%);
+        }
+
+        .burger input:checked ~ span:nth-of-type(1) {
+            transform: rotate(45deg);
+            top: 3px; 
+            left: 0px; 
+        }
+
+        .burger input:checked ~ span:nth-of-type(2) {
+            width: 0%;
+            opacity: 0;
+        }
+
+        .burger input:checked ~ span:nth-of-type(3) {
+            transform: rotate(-45deg);
+            top: 22px; 
+            left: 0px; 
+        }
+
+        /* --- Floating Available for Work Badge Styling --- */
+        .available-badge {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #1e293b; /* Darker slate, similar to your image */
+            color: #e2e8f0;
+            padding: 10px 20px;
+            border-radius: 9999px; /* Fully rounded */
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+            z-index: 50; /* Above most content, below modals */
+            transition: all 0.3s ease-in-out;
+        }
+
+        .available-badge:hover {
+            background-color: #2b3a4e; /* Slightly lighter on hover */
+            transform: translateY(-2px); /* Slight lift */
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+        }
+
+        .available-badge .dot {
+            width: 12px;
+            height: 12px;
+            background-color: #14b8a6; /* Teal-500 for the dot */
+            border-radius: 50%;
+            margin-right: 10px;
+            position: relative;
+            animation: pulse-dot 1.5s infinite; /* Pulsing animation */
+        }
+        
+        /* Inner pulse for the dot */
+        .available-badge .dot::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: #14b8a6; /* Teal-500 */
+            animation: pulse-ring 1.5s infinite;
+            opacity: 0.75;
+        }
+
+        @keyframes pulse-dot {
+            0% { transform: scale(0.9); }
+            50% { transform: scale(1.0); }
+            100% { transform: scale(0.9); }
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 0.75; }
+            50% { transform: scale(1.2); opacity: 0; }
+            100% { transform: scale(0.8); opacity: 0.75; }
+        }
