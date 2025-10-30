@@ -23,7 +23,7 @@ Built as a single, lightweight HTML file using:
 
 Front-end: Pure HTML5, CSS3, JavaScript.
 
-Styling: Tailwind CSS.
+Styling: boostrap CSS.
 
 Libraries: Lucide Icons, AOS (Animate On Scroll).
 
