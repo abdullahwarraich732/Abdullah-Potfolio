@@ -1,0 +1,157 @@
+/* Base Styles for dark theme */
+html {
+    /* Creates a stacking context for the background z-index */
+    isolation: isolate;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #0F172A; /* slate-900 */
+    color: #E2E8F0; /* slate-200 */
+    /* FIX: Ensure no horizontal overflow on mobile */
+    max-width: 100vw; 
+    overflow-x: hidden;
+}
+
+/* --- NEW: Animated Aurora Background --- */
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    z-index: -1; /* Puts them behind all other content */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0.15; /* Keeps it subtle */
+    filter: blur(100px); /* Makes the blobs soft */
+    will-change: transform; /* Performance optimization */
+}
+
+/* The first blob (cyan) */
+body::before {
+    background: radial-gradient(circle at 10% 10%, #06B6D4, transparent 50%);
+    animation: moveBlob1 20s infinite alternate linear;
+}
+
+/* The second blob (green/teal) */
+body::after {
+    background: radial-gradient(circle at 90% 80%, #10B981, transparent 50%);
+    animation: moveBlob2 25s infinite alternate-reverse linear;
+}
+
+/* The animation keyframes */
+@keyframes moveBlob1 {
+    from {
+        transform: translate(-20vw, -10vh) rotate(-30deg);
+    }
+    to {
+        transform: translate(30vw, 20vh) rotate(20deg);
+    }
+}
+
+@keyframes moveBlob2 {
+    from {
+        transform: translate(20vw, 30vh) rotate(40deg);
+    }
+    to {
+        transform: translate(-30vw, -10vh) rotate(-10deg);
+    }
+}
+/* --- END: Animated Aurora Background --- */
+
+
+/* Custom Primary Button Style */
+.btn-primary {
+    background-image: linear-gradient(to right, #10B981, #06B6D4); /* teal-500 to cyan-500 */
+    transition: all 0.3s ease;
+}
+.btn-primary:hover {
+    opacity: 0.9;
+    box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.5), 0 4px 6px -2px rgba(16, 185, 129, 0.1);
+    transform: translateY(-2px);
+}
+
+/* --- Custom Mobile Menu Burger Animation --- */
+.burger {
+    position: relative;
+    width: 30px;
+    height: 24px;
+    cursor: pointer;
+    z-index: 51; /* Above mobile menu */
+}
+.burger input {
+    display: none;
+}
+.burger span {
+    display: block;
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    background: #D1D5DB; /* text-slate-300 */
+    border-radius: 9px;
+    opacity: 1;
+    left: 0;
+    transform: rotate(0deg);
+    transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+.burger span:nth-child(2) { top: 0px; }
+.burger span:nth-child(3) { top: 10px; }
+.burger span:nth-child(4) { top: 20px; }
+
+/* FIX: Use ~ (general sibling combinator) instead of + */
+.burger input:checked ~ span:nth-child(2) {
+    transform: rotate(45deg);
+    top: 10px;
+    background: #2DD4BF; /* text-teal-400 */
+}
+.burger input:checked ~ span:nth-child(3) {
+    opacity: 0;
+    left: -60px;
+}
+.burger input:checked ~ span:nth-child(4) {
+    transform: rotate(-45deg);
+    top: 10px;
+    background: #2DD4BF; /* text-teal-400 */
+}
+
+/* --- Fixed Availability Badge --- */
+.available-badge {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 8px 16px;
+    background: #1E293B; /* slate-800 */
+    color: #2DD4BF; /* teal-400 */
+    border: 1px solid #2DD4BF;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    z-index: 40;
+}
+.available-badge:hover {
+    transform: scale(1.05);
+    background-color: #2DD4BF10; /* slight teal overlay */
+}
+.available-badge .dot {
+    width: 10px;
+    height: 10px;
+    background-color: #10B981; /* green-500 */
+    border-radius: 50%;
+    margin-right: 8px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+    70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+}
+
+/* --- Modal Backdrop --- */
+.modal-bg {
+    background-color: rgba(15, 23, 42, 0.95); /* slate-900 with high opacity */
+}
